@@ -1,11 +1,24 @@
 const express = require('express');
 const app = express();
-require('dotenv/config');
+const bodyParser = require('body-parser');
 
+require('dotenv/config');
+//middleware
+app.use(bodyParser.json());
 const api = process.env.API_URL;
 
-app.get('/', (req, res) => {
-    res.send('hello api !')
+app.get(`${api}/products`, (req, res) => {
+    const product = {
+        id: 1,
+        name: "product1",
+        image: 'some_url'
+    }
+    res.send(product)
+});
+app.post(`${api}/products`, (req, res) => {
+    const newProduct = req.body;
+
+    res.send(newProduct);
 });
 
 app.listen(3000, () => {
