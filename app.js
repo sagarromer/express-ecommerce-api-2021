@@ -1,10 +1,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 require('dotenv/config');
 //middleware
 app.use(bodyParser.json());
+app.use(morgan('tiny'));
+
 const api = process.env.API_URL;
 
 app.get(`${api}/products`, (req, res) => {
