@@ -8,9 +8,15 @@ const cors = require('cors');
 app.use(cors());
 app.options('*',cors());
 require('dotenv/config');
+const authJwt = require('./helpers/jwt');
+const errorHandler = require('./helpers/error-handler');
+
 //middleware
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
+app.use(authJwt());
+app.use(errorHandler);
+
 
 //Routes
 const categoriesRoutes = require('./routes/categories');
